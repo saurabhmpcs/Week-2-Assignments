@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO App</title>
+  </head>
+  <body>
+    <h1>TODO title</h1>
+    <label for="todoTitle">Todo Title:</label>
+    <input type="text" id="todoTitle" name="todoTitle" />
+    <br />
+    <label for="todoDescription">Todo Description:</label>
+    <input type="text" id="todoDescription" name="todoDescription" />
+    <br /><br />
+    <button onclick="onPress()">Send Todo</button>
+
+    <script>
+      function parsedResponse(data) {
+        console.log(data);
+      }
+
+      function callback(resp) {
+        resp.json().then(parsedResponse);
+      }
+
+      function onPress() {
+        fetch("http://localhost:3000/todos", {
+          method: "POST",
+          body: JSON.stringify({
+            title: "gym",
+            description: "go to the gym at 7",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then(callback);
+      }
+    </script>
+  </body>
+</html>
